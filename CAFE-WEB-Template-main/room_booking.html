@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>ระบบจองห้องพัก</title>
+    <link rel="stylesheet" href="css/room_booking.css">
+<body>
+    
+</head>
+ <header>
+        <div class="container1">
+            <div class="header-content">
+                <div class="logo">จองห้องพัก Sbay Home Stay </div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" onclick="window.location.href='index.html';">
+    หน้าหลัก
+</button>
+<button class="nav-btn " onclick="window.location.href='room_booking.html';">
+    จองห้องพัก
+</button>
+<button class="nav-btn " onclick="window.location.href='room_calendar.html';">
+    ตารางจองห้องพัก
+</button>
+<button class="nav-btn " onclick="window.location.href='my_booking.html';">
+    รายการจองของฉัน
+</button>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="header">
+            <h1>จองห้องพัก</h1>
+            <p>เลือกห้องพักและกรอกข้อมูลเพื่อทำการจอง</p>
+        </div>
+
+        <div class="content">
+            <!-- Room Selection Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    เลือกห้องพักรายวัน
+                </h2>
+                <div class="rooms-grid">
+                    <div class="room-card" onclick="selectRoom(1)">
+                        <div class="room-slider">
+        <img src="https://th.bing.com/th/id/OIP.6tfWCrEO3S5IBxS1PzLuvAHaFj?w=262&h=197&c=7&r=0&o=7&pid=1.7&rm=3" class = "slider-image active">
+        <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/72bcb103-7d91-42f6-acea-5a44b95da585" class="slider-image">
+          <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/72bcb103-7d91-42f6-acea-5a44b95da585" class="slider-image">
+        <button class="slider-btn prev" onclick="prevSlide(event)">❮</button>
+        <button class="slider-btn next" onclick="nextSlide(event)">❯</button>
+    </div>
+                        <div class="room-content">
+                            <div class="room-title">
+                                <div class="room-icon">1</div>
+                                ห้องพัก 1
+                            </div>
+                            <div class="room-features">
+                                <span class="feature-tag">โปรเจคเตอร์</span>
+                                <span class="feature-tag">TV</span>
+                                <span class="feature-tag">WiFi</span>
+                                <span class="feature-tag">เครื่องปรับอากาศ</span>
+                            </div>
+                            <div class="room-capacity">👥 รองรับ 1-2 คน</div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="room-card" onclick="selectRoom(1)">
+    <div class="room-slider">
+        <img src="https://th.bing.com/th/id/OIP.pQDIS62h8CryEMa1tbQqjQHaFj?w=261&h=196&c=7&r=0&o=7&pid=1.7&rm=3" class="slider-image active">
+        <img src="https://th.bing.com/th/id/OIP.bmr82VrpjDFD4J78yloggwHaE8?w=294&h=196&c=7&r=0&o=7&pid=1.7&rm=3" class="slider-image">
+        <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/72bcb103-7d91-42f6-acea-5a44b95da585" class="slider-image">
+        <button class="slider-btn prev" onclick="prevSlide(event)">❮</button>
+        <button class="slider-btn next" onclick="nextSlide(event)">❯</button>
+    </div>
+                        <div class="room-content">
+                            <div class="room-title">
+                                <div class="room-icon">2</div>
+                                ห้องพัก 2
+                            </div>
+                            <div class="room-features">
+                                 <span class="feature-tag">เครื่องปรับอากาศ</span>
+                                <span class="feature-tag">ผ้าเช็ดตัว</span>
+                    
+                                <span class="feature-tag">เด็ก-ผู้ใหญ่</span>
+                                <span class="feature-tag">WiFi</span>
+                            </div>
+                            <div class="room-capacity">👥 รองรับ 1-2 คน</div>
+                        </div>
+                    </div>
+
+                    <div class="room-card" onclick="selectRoom(3)">
+                         <div class="room-slider">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1fEHbas2IbyTMMufFpTZtbO5_ULkuz0K4fQ&s" class="slider-image active">
+        <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/72bcb103-7d91-42f6-acea-5a44b95da585" class="slider-image">
+          <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/72bcb103-7d91-42f6-acea-5a44b95da585" class="slider-image">
+        <button class="slider-btn prev" onclick="prevSlide(event)">❮</button>
+        <button class="slider-btn next" onclick="nextSlide(event)">❯</button>
+    </div>
+                        <div class="room-content">
+                            <div class="room-title">
+                                <div class="room-icon">3</div>
+                                ห้องพัก 3
+                            </div>
+                            <div class="room-features">
+                                <span class="feature-tag">เครื่องปรับอากาศ</span>
+                                <span class="feature-tag">ผ้าเช็ดตัว</span>
+                                <span class="feature-tag">สูบบุหรี่</span>
+                                <span class="feature-tag">เด็ก-ผู้ใหญ่</span>
+                                <span class="feature-tag">WiFi</span>
+                            </div>
+                            <div class="room-capacity">👥 รองรับ 1-2 คน</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                   
+    
+            
+
+            <!-- Booking Information Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    ข้อมูลการจอง
+                </h2>
+                
+                <form id="bookingForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">ชื่อผู้จอง <span class="required">*</span></label>
+                            <input type="text" class="form-input" placeholder="กรุณากรอกชื่อ-นามสกุล" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">เบอร์โทรศัพท์ <span class="required">*</span></label>
+                            <input type="tel" class="form-input" placeholder="08X-XXX-XXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">อีเมล <span class="required">*</span></label>
+                            <input type="email" class="form-input" placeholder="example@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">วันที่ต้องการจอง <span class="required">*</span></label>
+                            <input type="date" class="form-input" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">เวลาที่ต้องการจอง <span class="required">*</span></label>
+                            <div class="datetime-group">
+                                <input type="time" class="form-input" placeholder="เวลาเริ่ม" required>
+                                <input type="time" class="form-input" placeholder="เวลาสิ้นสุด" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label class="form-label">หมายเหตุเพิ่มเติม</label>
+                            <textarea class="form-input form-textarea" placeholder="รายละเอียดเพิ่มเติม วัตถุประสงค์การใช้งาน หรือความต้องการพิเศษ..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span>✅</span>
+                        ยืนยันการจอง
+                    </button>
+
+                    <div class="success-message" id="successMessage">
+                        <span>✅</span>
+                        การจองของคุณสำเร็จแล้ว! เราจะติดต่อกลับภายใน 24 ชั่วโมง
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedRoom = null;
+
+        function selectRoom(roomNumber) {
+            // Remove previous selection
+            document.querySelectorAll('.room-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked room
+            event.currentTarget.classList.add('selected');
+            selectedRoom = roomNumber;
+        }
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedRoom) {
+                alert('กรุณาเลือกห้องประชุมก่อนทำการจอง');
+                return;
+            }
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'flex';
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                this.reset();
+                selectedRoom = null;
+                document.querySelectorAll('.room-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                successMessage.style.display = 'none';
+            }, 3000);
+        });
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.querySelector('input[type="date"]');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+        });
+        function nextSlide(event) {
+    event.stopPropagation(); // ป้องกันไม่ให้ไป trigger selectRoom ด้วย
+    const btn = event.target;
+    const slider = btn.closest(".room-slider");
+    const images = slider.querySelectorAll(".slider-image");
+    let currentIndex = Array.from(images).findIndex(img => img.classList.contains("active"));
+    images[currentIndex].classList.remove("active");
+    const nextIndex = (currentIndex + 1) % images.length;
+    images[nextIndex].classList.add("active");
+}
+
+function prevSlide(event) {
+    event.stopPropagation();
+    const btn = event.target;
+    const slider = btn.closest(".room-slider");
+    const images = slider.querySelectorAll(".slider-image");
+    let currentIndex = Array.from(images).findIndex(img => img.classList.contains("active"));
+    images[currentIndex].classList.remove("active");
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+    images[prevIndex].classList.add("active");
+}
+
+    </script>
+</body
+
+>
+</html>
+
+
+
+<!-- ทดลองดึงรูป 
+
+<?php
+$conn = new mysqli("localhost", "root", "", "booking_db");
+$conn->set_charset("utf8");
+
+if ($conn->connect_error) {
+    die("เชื่อมต่อฐานข้อมูลล้มเหลว: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM rooms";
+$result = $conn->query($sql);
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>เลือกห้องพักรายวัน</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+
+<div class="section">
+    <h2 class="section-title">เลือกห้องพักรายวัน</h2>
+    <div class="rooms-grid">
+
+        <?php while($row = $result->fetch_assoc()): ?>
+        <div class="room-card" onclick="selectRoom(<?= $row['id'] ?>)">
+            <div class="room-slider">
+                <img src="uploads/<?= $row['image1'] ?>" class="slider-image active">
+                <img src="uploads/<?= $row['image2'] ?>" class="slider-image">
+                <img src="uploads/<?= $row['image3'] ?>" class="slider-image">
+                <button class="slider-btn prev" onclick="prevSlide(event)">❮</button>
+                <button class="slider-btn next" onclick="nextSlide(event)">❯</button>
+            </div>
+            <div class="room-content">
+                <div class="room-title">
+                    <div class="room-icon"><?= $row['id'] ?></div>
+                    <?= $row['name'] ?>
+                </div>
+                <div class="room-features">
+                    <?php
+                    $features = explode(",", $row['features']);
+                    foreach ($features as $feature) {
+                        echo "<span class='feature-tag'>" . trim($feature) . "</span>";
+                    }
+                    ?>
+                </div>
+                <div class="room-capacity">👥 รองรับ <?= $row['capacity'] ?></div>
+            </div>
+        </div>
+        <?php endwhile; ?>
+
+    </div>
+</div>
+
+<script src="slider.js"></script> 
+-->
+</body>
+</html>

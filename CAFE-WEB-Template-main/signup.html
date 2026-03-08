@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างบัญชีใหม่</title>
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>สร้างบัญชีใหม่</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="signupOption">สมัครด้วย:</label>
+                <select id="signupOption" onchange="toggleIdentifierField()" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    <option value="email">อีเมล</option>
+                    <option value="phone">เบอร์โทรศัพท์</option>
+                </select>
+            </div>
+            <div class="form-group" id="emailGroup">
+                <label for="signupEmail">อีเมล</label>
+                <input type="email" id="signupEmail" name="email">
+            </div>
+            <div class="form-group" id="phoneGroup" style="display: none;">
+                <label for="signupPhone">เบอร์โทรศัพท์</label>
+                <input type="tel" id="signupPhone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">รหัสผ่าน</label>
+                <input type="password" id="signupPassword" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">ยืนยันรหัสผ่าน</label>
+                <input type="password" id="confirmPassword" name="confirm_password" required>
+            </div>
+            <div class="error-message" id="signupError"></div>
+            <div class="success-message" id="signupSuccess"></div>
+            <button type="submit" class="auth-button">สมัครสมาชิก</button>
+        </form>
+        <div class="switch-page">
+            มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบ</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleIdentifierField(); // Set initial state based on default select value
+        });
+
+        function toggleIdentifierField() {
+            const signupOption = document.getElementById('signupOption').value;
+            const emailGroup = document.getElementById('emailGroup');
+            const phoneGroup = document.getElementById('phoneGroup');
+
+            if (signupOption === 'email') {
+                emailGroup.style.display = 'block';
+                phoneGroup.style.display = 'none';
+                document.getElementById('signupEmail').setAttribute('required', 'required');
+                document.getElementById('signupPhone').removeAttribute('required');
+            } else {
+                emailGroup.style.display = 'none';
+                phoneGroup.style.display = 'block';
+                document.getElementById('signupPhone').setAttribute('required', 'required');
+                document.getElementById('signupEmail').removeAttribute('required');
+            }
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const signupOption = document.getElementById('signupOption').value;
+            const email = document.getElementById('signupEmail').value;
+            const phone = document.getElementById('signupPhone').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMessage = document.getElementById('signupError');
+            const successMessage = document.getElementById('signupSuccess');
+
+            errorMessage.style.display = 'none'; // Hide previous error
+            successMessage.style.display = 'none'; // Hide previous success
+
+            let identifier = '';
+            if (signupOption === 'email') {
+                identifier = email;
+                if (!identifier || !identifier.includes('@')) {
+                    errorMessage.textContent = 'กรุณากรอกอีเมลที่ถูกต้อง';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+            } else { // phone
+                identifier = phone;
+                // Basic phone validation (e.g., just numbers)
+                if (!identifier || !/^\d{9,10}$/.test(identifier)) {
+                    errorMessage.textContent = 'กรุณากรอกเบอร์โทรศัพท์ที่ถูกต้อง (9-10 หลักตัวเลข)';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+            }
+
+            if (!password || password.length < 6) {
+                errorMessage.textContent = 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'รหัสผ่านและการยืนยันไม่ตรงกัน';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // --- Send data to your backend API for registration ---
+            // THIS IS WHERE YOU WOULD MAKE AN AJAX/FETCH REQUEST TO YOUR SERVER
+            // Example using fetch (requires a running backend server):
+            /*
+            fetch('/api/register', { // Replace '/api/register' with your actual backend registration endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: signupOption === 'email' ? identifier : null,
+                    phone: signupOption === 'phone' ? identifier : null,
+                    password: password
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    successMessage.textContent = data.message || 'สมัครสมาชิกสำเร็จ! โปรดตรวจสอบอีเมล/SMS เพื่อยืนยันบัญชี';
+                    successMessage.style.display = 'block';
+                    // Optional: Clear form or redirect
+                    document.getElementById('signupForm').reset();
+                    // In a real app, after successful registration, you might redirect
+                    // to a verification page or login page:
+                    // setTimeout(() => { window.location.href = 'login.html'; }, 3000);
+                } else {
+                    errorMessage.textContent = data.message || 'เกิดข้อผิดพลาดในการสมัครสมาชิก';
+                    errorMessage.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error during signup:', error);
+                errorMessage.textContent = 'เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่';
+                errorMessage.style.display = 'block';
+            });
+            */
+
+            // --- For demonstration without a backend, simulate success/failure ---
+            console.log('Attempting to sign up with:', { type: signupOption, identifier, password });
+            
+            // Simulate unique constraint for identifier
+            if (identifier === 'existing@example.com' || identifier === '0987654321') {
+                errorMessage.textContent = 'อีเมลหรือเบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว (จำลอง)';
+                errorMessage.style.display = 'block';
+            } else {
+                successMessage.textContent = 'สมัครสมาชิกสำเร็จ! โปรดตรวจสอบอีเมล/SMS เพื่อยืนยันบัญชี (จำลอง)';
+                successMessage.style.display = 'block';
+                document.getElementById('signupForm').reset(); // Clear form
+                // In a real scenario, you'd send verification here
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>ตารางการจองห้องพัก</title>
+    <link rel ="stylesheet" href="css/room_calendar.css">
+</head>
+<body>
+    <header>
+        <div class="container1">
+            <div class="header-content">
+                <div class="logo">ตารางจองห้องพัก Sbay Home Stay </div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" onclick="window.location.href='index.html';">
+    หน้าหลัก
+</button>
+<button class="nav-btn " onclick="window.location.href='room_booking.html';">
+    จองห้องพัก
+</button>
+<button class="nav-btn " onclick="window.location.href='room_calendar.html';">
+    ตารางจองห้องพัก
+</button>
+<button class="nav-btn " onclick="window.location.href='booking_list.html';">
+    รายการจองของฉัน
+</button>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="current-datetime" id="currentDateTime"></div>
+
+        <div class="form-select">
+            <label for="roomSelect">เลือกห้อง:</label>
+            <select id="roomSelect">
+                <option value="1">ห้อง 1 (Standard)</option>
+                <option value="2">ห้อง 2 (Deluxe)</option>
+                <option value="3">ห้อง 3 (Suite)</option>
+                <option value="4">ห้อง 4 (Standard)</option>
+                <option value="5">ห้อง 5 (Deluxe)</option>
+                 <option value="3">ห้อง 6 (Suite)</option>
+                <option value="4">ห้อง 7 (Standard)</option>
+                <option value="5">ห้อง 8 (Deluxe)</option>
+            </select>
+
+            <label for="monthSelect">เลือกเดือน:</label>
+            <select id="monthSelect">
+                </select>
+
+            <label for="yearSelect">เลือกปี:</label>
+            <select id="yearSelect">
+                </select>
+
+            <button onclick="loadCalendar()">ดูตาราง</button>
+        </div>
+
+        <table id="calendarTable">
+            <thead>
+                <tr>
+                    <th>อาทิตย์</th>
+                    <th>จันทร์</th>
+                    <th>อังคาร</th>
+                    <th>พุธ</th>
+                    <th>พฤหัสบดี</th>
+                    <th>ศุกร์</th>
+                    <th>เสาร์</th>
+                </tr>
+            </thead>
+            <tbody id="calendarBody">
+                </tbody>
+        </table>
+
+        <div class="legend">
+            <div><div class="legend-box available-box"></div> ว่าง</div>
+            <div><div class="legend-box unavailable-box"></div> ไม่ว่าง</div>
+        </div>
+    </div>
+
+    <script>
+        // --- Current Date and Time Display ---
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false // Use 24-hour format
+            };
+            document.getElementById('currentDateTime').innerText = now.toLocaleDateString('th-TH', options);
+        }
+        setInterval(updateDateTime, 1000); // Update every second
+        updateDateTime(); // Initial call
+
+        // --- Calendar Functionality ---
+        const monthSelect = document.getElementById("monthSelect");
+        const yearSelect = document.getElementById("yearSelect");
+        const calendarBody = document.getElementById("calendarBody");
+
+        const thaiMonths = [
+            'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+            'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+        ];
+
+        // Populate Month Dropdown
+        for (let m = 0; m < 12; m++) {
+            let opt = document.createElement("option");
+            opt.value = m + 1; // Month values 1-12
+            opt.text = thaiMonths[m];
+            monthSelect.appendChild(opt);
+        }
+
+        // Populate Year Dropdown (e.g., current year -1 to current year +2, using Buddhist year)
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear - 1; y <= currentYear + 2; y++) {
+            let opt = document.createElement("option");
+            opt.value = y;
+            opt.text = `พ.ศ. ${y + 543}`; // Convert to Buddhist year
+            yearSelect.appendChild(opt);
+        }
+
+        // Set default selected month and year to current
+        monthSelect.value = new Date().getMonth() + 1;
+        yearSelect.value = new Date().getFullYear();
+
+        // --- Simulated Booking Data (replace with actual backend data) ---
+        // This object stores unavailable dates for each room.
+        // Format: { "roomId": { "YYYY-MM-DD": "unavailable" } }
+        let simulatedBookings = {
+            "1": { // Room 1
+                "2025-07-25": "unavailable",
+                "2025-07-26": "unavailable",
+                "2025-08-10": "unavailable"
+            },
+            "2": { // Room 2
+                "2025-07-22": "unavailable", // Today's date example
+                "2025-07-23": "unavailable",
+                "2025-08-01": "unavailable"
+            },
+            "3": { // Room 3
+                "2025-07-28": "unavailable"
+            }
+            // Add more simulated bookings for other rooms as needed
+        };
+
+        function loadCalendar() {
+            const selectedRoomId = document.getElementById("roomSelect").value;
+            const selectedMonth = parseInt(monthSelect.value);
+            const selectedYear = parseInt(yearSelect.value);
+
+            calendarBody.innerHTML = ""; // Clear previous calendar
+
+            const firstDayOfMonth = new Date(selectedYear, selectedMonth - 1, 1).getDay(); // 0 for Sunday, 1 for Monday...
+            const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate(); // Get last day of the month
+
+            let dateCounter = 1;
+            let row = document.createElement("tr");
+
+            // Add empty cells for days before the 1st of the month
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                let cell = document.createElement("td");
+                cell.classList.add('disabled');
+                row.appendChild(cell);
+            }
+
+            // Fill in the days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                if (row.children.length === 7) {
+                    calendarBody.appendChild(row);
+                    row = document.createElement("tr");
+                }
+
+                const cell = document.createElement("td");
+                const currentMonthPadded = selectedMonth.toString().padStart(2, '0');
+                const currentDayPadded = day.toString().padStart(2, '0');
+                const dateKey = `${selectedYear}-${currentMonthPadded}-${currentDayPadded}`;
+
+                cell.innerText = day;
+
+                // Check if the current date for the selected room is booked
+                if (simulatedBookings[selectedRoomId] && simulatedBookings[selectedRoomId][dateKey] === "unavailable") {
+                    cell.classList.add("unavailable");
+                } else {
+                    cell.classList.add("available");
+                    cell.title = `คลิกเพื่อจองวันที่ ${day} ${thaiMonths[selectedMonth-1]} ${selectedYear + 543}`; // Tooltip
+                    cell.onclick = () => {
+                        // In a real application, you would redirect to a booking page
+                        // or open a booking form here, passing the roomId and date.
+                        // Example: window.location.href = `booking_page.html?room=${selectedRoomId}&date=${dateKey}`;
+                        alert(`คุณเลือกห้อง ${selectedRoomId} วันที่ ${dateKey} โปรดดำเนินการจองในหน้าถัดไป`);
+                        // Optional: Mark as unavailable immediately after "booking" for user feedback
+                        // simulatedBookings[selectedRoomId][dateKey] = "unavailable";
+                        // loadCalendar(); // Reload to show updated status
+                    };
+                }
+                row.appendChild(cell);
+            }
+
+            // Add empty cells for remaining days in the last week
+            while (row.children.length < 7) {
+                let cell = document.createElement("td");
+                cell.classList.add('disabled');
+                row.appendChild(cell);
+            }
+            calendarBody.appendChild(row);
+        }
+
+        // Load calendar on initial page load
+        document.addEventListener('DOMContentLoaded', loadCalendar);
+    </script>
+</body>
+</html>

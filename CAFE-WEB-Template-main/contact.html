@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ADD MORE CAFE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">ADD MORE CAFE</a></li>
+                <li><a href="index.html">หน้าแรก</a></li>
+                <li><a href="contact.html" class="active">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>เรื่องราวของเรา</h1>
+            <p>ร้านกาแฟที่ถือกำเนิดขึ้นจากความรักในการทำกาแฟและการบริการที่มาจากใจ</p>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Story Section -->
+            <div class="story-section">
+                <h2>ที่มาของร้าน</h2>
+                <div class="story-content">
+                    <p>ADD MORE CAFE เกิดขึ้นจากความฝันของคนรักกาแฟที่ต้องการสร้างพื้นที่แห่งการพักผ่อนและการทำงานที่อบอุ่น ด้วยกาแฟคุณภาพสูงและบรรยากาศที่เป็นกันเอง</p>
+                    
+                    <p>เรามุ่งมั่นที่จะให้บริการกาแฟที่มีคุณภาพ ด้วยเมล็ดกาแฟที่คัดสรรมาอย่างดี และการชงที่ใส่ใจในทุกรายละเอียด</p>
+                    
+                    <p>ที่ร้านของเราไม่เพียงแต่เป็นสถานที่ดื่มกาแฟ แต่ยังเป็นพื้นที่ที่ทุกคนสามารถมาพบปะ ทำงาน และสร้างความทรงจำดีๆ ร่วมกัน</p>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>ติดต่อเรา</h2>
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-text">
+                        <strong>โทรศัพท์</strong>
+                        <span>09999xxxxx</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-text">
+                        <strong>อีเมล</strong>
+                        <span>support@addmorecoffee.com</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-text">
+                        <strong>ที่อยู่</strong>
+                        <span>สบายโฮมสเตย์, ทางเข้าซอยข้าง Lotus express, ม.พะเยา</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enquiry Form -->
+        <div class="enquiry-form">
+            <h2>ส่งข้อความถึงเรา</h2>
+            
+            <!-- SUCCESS MESSAGE - Backend Integration Point #1 -->
+            <div class="success-message" id="successMessage">
+                ขอบคุณสำหรับข้อความของคุณ! เราจะติดต่อกลับโดยเร็วที่สุด
+            </div>
+            
+            <!-- FORM - Backend Integration Point #2 -->
+            <!-- 
+                Backend Integration Points:
+                - Form action should point to your backend endpoint (e.g., "/api/contact" or "/submit-contact")
+                - Method should be "POST"
+                - Add CSRF token for security
+                - Consider adding form validation on backend
+                - Setup email notification system
+                - Store submissions in database
+            -->
+            <form id="contactForm" action="#" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">ชื่อ-นามสกุล *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">เบอร์โทรศัพท์ *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">อีเมล *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">เรื่อง *</label>
+                        <input type="text" id="subject" name="subject" placeholder="หัวข้อเรื่องที่ต้องการติดต่อ" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="reason">ประเภทการติดต่อ *</label>
+                        <select id="reason" name="reason" required>
+                            <option value="">-- เลือกประเภทการติดต่อ --</option>
+                            <option value="general">สอบถามทั่วไป</option>
+                            <option value="order">เรื่องการสั่งซื้อ</option>
+                            <option value="feedback">ข้อเสนอแนะ</option>
+                            <option value="complaint">ร้องเรียน</option>
+                            <option value="partnership">ความร่วมมือ</option>
+                            <option value="other">อื่นๆ</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="message">ข้อความ *</label>
+                        <textarea id="message" name="message" placeholder="กรุณาระบุรายละเอียดข้อความที่ต้องการติดต่อ" required></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width" style="text-align: center;">
+                        <button type="submit" class="submit-btn">ส่งข้อความ</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2>แผนที่ร้าน</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235.73357137518605!2d99.929465035633!3d19.031301107677315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30d8337dd07c2195%3A0x9606e8f393b5b769!2z4Liq4Lia4Liy4LiiIOC5guC4reC4oeC4quC5gOC4leC4ouC5jA!5e0!3m2!1sth!2sth!4v1742826442621!5m2!1sth!2sth" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Frontend Form Handling - Backend Integration Point #3
+        /*
+            Backend Integration Notes:
+            1. Replace the form action with your backend endpoint
+            2. Add CSRF token to prevent attacks
+            3. Implement server-side validation
+            4. Setup email notification system
+            5. Store form submissions in database
+            6. Add rate limiting to prevent spam
+            7. Consider using a contact form service like Formspree or Netlify Forms for quick setup
+        */
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Remove this when connecting to backend
+            
+            // Frontend validation (additional to HTML5 validation)
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            // Show success message (this would be handled by backend response)
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Reset form
+            form.reset();
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+            
+            /*
+                When connecting to backend, replace above code with:
+                
+                fetch('/api/contact', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('successMessage').style.display = 'block';
+                        form.reset();
+                    } else {
+                        // Handle error
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            */
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

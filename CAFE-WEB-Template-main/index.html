@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Add More Café</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <!-- Header Navbar -->
+<header>
+  <nav class="navbar">
+    <ul class="nav-left">
+      <li><a href="#">หน้าหลัก</a></li>
+      <li><a href="#menu">เมนู</a></li>
+      <li><a href="room_booking.html">จองห้องพัก</a></li>
+    </ul>
+
+    <div class="logo">
+      <span class="logo-container">
+        <img src="images/logo.png" alt="Add More Café">
+      </span>
+    </div>
+
+    <div class="nav-right-with-icons">
+      <ul class="nav-right">
+        <li><a href="#gallery">แกลเลอรี่</a></li>
+        <li><a href="signup.html">สมัครสมาชิก</a></li>
+        <li><a href="contact.html">ติดต่อเรา</a></li>
+      </ul>
+</div>
+      <div class="menu-icons">
+   
+
+<div class="search-container" id="searchContainer">
+    <img src="images/search.png" alt="ค้นหา" class="search-button" id="searchToggle" width="30">
+
+    <div class="search-field">
+        <input type="text" id="searchInput" placeholder="พิมพ์เพื่อค้นหา...">
+    <button onclick="searchText()">ค้นหา</button>
+    </div>
+</div>
+
+
+        <a href="login.html"><img src="images/user.png" alt="เข้าสู่ระบบ"></a>
+       
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+
+  
+
+  <!-- Banner Home Page -->
+ <section class="hero-section">
+    <img src="images/banner.jpg" alt="บรรยากาศร้าน Add More Café">
+    <div class="hero-content">
+      <h1 class="hero-title">Add More Café</h1>
+      <p class="hero-subtitle">ที่พักผ่อนแสนอบอุ่น พร้อมกาแฟหอมกรุ่นและอาหารอร่อย</p>
+      <button class="hero-cta" onclick="document.getElementById('menu').scrollIntoView()">
+      สำรวจเมนูของเรา
+      </button>
+      
+  </section>
+<body>
+
+
+  <!-- Section 2: เมนู -->
+  <section class="menu loading" id="menu">
+    <h2>เมนู</h2>
+    <div class="menu-content">
+      <div class="menu-image">
+        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&h=400&fit=crop" alt="Menu Image">
+      </div>
+      <div class="menu-list">
+        <h3>OUR MENUS</h3>
+        <a href="pdfs/breakfast-menu.pdf" target="_blank" class="menu-button">
+          <span>🌅 BREAKFAST</span>
+        </a>
+        <a href="pdfs/lunch-dinner-menu.pdf" target="_blank" class="menu-button">
+          <span>🍽️ LUNCH & DINNER</span>
+        </a>
+        <a href="pdfs/coffee-menu.pdf" target="_blank" class="menu-button">
+          <span>☕ COFFEE</span>
+        </a>
+        <a href="pdfs/dessert-menu.pdf" target="_blank" class="menu-button">
+          <span>🍰 CAKE & DESSERT</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+
+  
+    <!-- Section 3: แกลเลอรี่ -->
+    <section class="gallery loading" id="gallery">
+    <h2>แกลเลอรี่</h2>
+    <div class="gallery-content">
+      <div class="gallery-item">
+        <img src="images/gallery1.jpg" alt="Gallery Image 1">
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery2.jpg" alt="Gallery Image 2">
+        
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery3.jpg" alt="Gallery Image 3">
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery4.jpg" alt="Gallery Image 4">
+        
+      </div>
+      <div class="gallery-item">
+        <img src="images/banner.jpg" alt="บรรยากาศร้าน Add More Café">
+        
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery5.jpg" alt="Gallery Image 5">
+        </div>
+    
+
+      </div>
+    </div>
+  </section>
+
+  </div>
+</section>
+<footer>
+    <p>&copy; 2025 ADDMORE CAFE. สงวนลิขสิทธิ์.</p>
+</footer>
+
+
+  
+  </body>
+</html>
+
+
+
+
+<script>
+const searchContainer = document.getElementById('searchContainer');
+const searchToggle = document.getElementById('searchToggle');
+
+searchToggle.addEventListener('click', function () {
+    searchContainer.classList.toggle('active');
+    if (searchContainer.classList.contains('active')) {
+        searchContainer.querySelector('.search-input').focus();
+    }
+});
+
+function searchText() {
+    const keyword = document.getElementById("searchInput").value.trim();
+    if (keyword === "") {
+        alert("กรุณากรอกคำค้นหาก่อน");
+        return;
+    }
+
+    const found = window.find(keyword);
+    if (!found) {
+        alert("ไม่พบคำว่า: " + keyword);
+    }
+}
+
+</script>
+<!--ปุ่มค้นหา-->
+ <style>
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            
+            padding: 8px 12px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        /* ล็อค navbar ไม่ให้ขยับ */
+header {
+  width: 110%;
+  min-width: 100px; /* กำหนดความกว้างขั้นต่ำ */
+  height: 130px;
+}
+
+.navbar {
+  width: 1200px;       /* fix ความกว้าง */
+  margin: 0 auto;      /* จัดกลาง */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ป้องกัน flex บีบตัว */
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 100px;
+  white-space: nowrap;
+}
+
+/* ล็อคขนาดโลโก้ */
+.logo img {
+  height: 130px;
+  width: auto;
+}
+
+/* ป้องกัน icon ขยาย */
+.menu-icons img {
+  width: 30px;
+  height: 30px;
+}
+    </style>

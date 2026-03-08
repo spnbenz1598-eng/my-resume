@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>เข้าสู่ระบบ</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h2>เข้าสู่ระบบ</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginIdentifier">อีเมล / เบอร์โทรศัพท์</label>
+                <input type="text" id="loginIdentifier" name="identifier" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">รหัสผ่าน</label>
+                <input type="password" id="loginPassword" name="password" required>
+            </div>
+            <div class="error-message" id="loginError"></div>
+            <button type="submit" class="auth-button">เข้าสู่ระบบ</button>
+        </form>
+        <div class="switch-page">
+            ยังไม่มีบัญชี? <a href="signup.html">สร้างบัญชีใหม่</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const identifier = document.getElementById('loginIdentifier').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorMessage = document.getElementById('loginError');
+
+            errorMessage.style.display = 'none'; // Hide previous error
+
+            // --- Client-side validation (basic) ---
+            if (!identifier || !password) {
+                errorMessage.textContent = 'กรุณากรอกทั้งอีเมล/เบอร์โทรศัพท์และรหัสผ่าน';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // --- Send data to your backend API for authentication ---
+            // THIS IS WHERE YOU WOULD MAKE AN AJAX/FETCH REQUEST TO YOUR SERVER
+            // Example using fetch (requires a running backend server):
+            /*
+            fetch('/api/login', { // Replace '/api/login' with your actual backend login endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ identifier: identifier, password: password }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Login successful!
+                    alert('เข้าสู่ระบบสำเร็จ!');
+                    // Redirect to a dashboard or main page
+                    window.location.href = 'index.html'; // Or your main application page
+                } else {
+                    errorMessage.textContent = data.message || 'ข้อมูลเข้าสู่ระบบไม่ถูกต้อง';
+                    errorMessage.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error during login:', error);
+                errorMessage.textContent = 'เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่';
+                errorMessage.style.display = 'block';
+            });
+            */
+
+            // --- For demonstration without a backend, simulate success/failure ---
+            if (
+    (identifier === 'test@example.com' && password === 'password123') ||
+    (identifier === '0812345678' && password === 'password123')
+) {
+    // จำลองข้อมูลผู้ใช้ (ในของจริงให้ดึงจากฐานข้อมูล)
+    const userData = {
+        id: 1,
+        name: 'ทดสอบ ผู้ใช้',
+        email: identifier.includes('@') ? identifier : 'test@example.com',
+        phone: identifier.includes('@') ? '0812345678' : identifier
+    };
+
+    // เก็บข้อมูลไว้ใน localStorage หรือ sessionStorage
+    localStorage.setItem('loggedInUser', JSON.stringify(userData));
+
+    alert('เข้าสู่ระบบสำเร็จ! (จำลอง)');
+    window.location.href = 'booking.html'; // หรือหน้า index.html ที่เป็นหน้าจอง
+}
+
+            
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>รายการจองของฉัน</title>
+    <link rel="stylesheet" href="css/my_booking.css">
+<header>
+        <div class="container1">
+            <div class="header-content">
+                <div class="logo">ตารางจองห้องพัก Sbay Home Stay </div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" onclick="window.location.href='index.html';">
+    หน้าหลัก
+</button>
+<button class="nav-btn " onclick="window.location.href='room_booking.html';">
+    จองห้องพัก
+</button>
+<button class="nav-btn " onclick="window.location.href='room_calendar.html';">
+    ตารางจองห้องพัก
+</button>
+<button class="nav-btn " onclick="window.location.href='booking_list.html';">
+    รายการจองของฉัน
+</button>
+
+                </div>
+            </div>
+        </div>
+    </header>
+        <div id="bookings-list">
+            </div>
+
+        <button class="change-button" id="saveAllBookings">
+            <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2v1a1 1 0 002 0V3a2 2 0 012 0v1a1 1 0 002 0V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm2.5 7a1.5 1.5 0 103 0 1.5 1.5 0 00-3 0z" clip-rule="evenodd"/>
+            </svg>
+            บันทึกการเปลี่ยนแปลงทั้งหมด
+        </button>
+    </div>
+
+    <script>
+        // --- Simulated Database (Client-Side Array) ---
+        // In a real application, this data would come from a backend API.
+        // We'll use localStorage to make it persist across browser sessions for demonstration.
+        let bookings = JSON.parse(localStorage.getItem('userBookings')) || [
+            {
+                id: 'bkg-001',
+                roomType: 'Standard Room',
+                roomNumber: '1/1',
+                pricePerNight: 2500,
+                bookingDate: '2025-02-16', // YYYY-MM-DD for easier manipulation
+                guestName: 'นาย สมปอง พยองเดช',
+                guestDetails: 'รายละเอียดห้องพัก: xxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                roomImage: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=300&h=200&fit=crop',
+                summaryChanges: [
+                    { type: 'Standard Room', currentPrice: 2500, change: -2500, newPrice: 0 }
+                ]
+            },
+            {
+                id: 'bkg-002',
+                roomType: 'Deluxe Suite',
+                roomNumber: '2/1',
+                pricePerNight: 3500,
+                bookingDate: '2025-03-01',
+                guestName: 'นางสาว สมศรี ใจดี',
+                guestDetails: 'โทรศัพท์: 081-234-5678\nข้อกำหนดพิเศษ: ต้องการวิวแม่น้ำ',
+                roomImage: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=300&h=200&fit=crop',
+                summaryChanges: [
+                    { type: 'Deluxe Suite', currentPrice: 3500, change: 0, newPrice: 3500 }
+                ]
+            }
+        ];
+
+        // Function to render all bookings
+        function renderBookings() {
+            const bookingsListDiv = document.getElementById('bookings-list');
+            bookingsListDiv.innerHTML = ''; // Clear existing bookings
+
+            if (bookings.length === 0) {
+                bookingsListDiv.innerHTML = '<p style="text-align: center; padding: 30px; color: #555;">ยังไม่มีรายการจอง</p>';
+                document.getElementById('saveAllBookings').style.display = 'none'; // Hide save button if no bookings
+                return;
+            } else {
+                document.getElementById('saveAllBookings').style.display = 'flex'; // Show save button
+            }
+
+            bookings.forEach(booking => {
+                const bookingCard = document.createElement('div');
+                bookingCard.classList.add('booking-card');
+                bookingCard.setAttribute('data-booking-id', booking.id);
+
+                // Format date for display
+                const dateObj = new Date(booking.bookingDate);
+                const formattedDate = dateObj.toLocaleDateString('th-TH', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+
+                let summaryRowsHtml = '';
+                if (booking.summaryChanges && booking.summaryChanges.length > 0) {
+                    summaryRowsHtml = booking.summaryChanges.map(change => `
+                        <div class="table-row">
+                            <div class="room-type">
+                                <span class="room-dot"></span>
+                                ${change.type}
+                            </div>
+                            <div class="price">${change.currentPrice.toLocaleString()}</div>
+                            <div class="price">${change.change.toLocaleString()}</div>
+                            <div class="price">${change.newPrice.toLocaleString()}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    summaryRowsHtml = `
+                        <div class="table-row">
+                            <div class="room-type">
+                                <span class="room-dot"></span>
+                                ไม่มีข้อมูลสรุปการเปลี่ยนแปลง
+                            </div>
+                            <div class="price">-</div>
+                            <div class="price">-</div>
+                            <div class="price">-</div>
+                        </div>
+                    `;
+                }
+
+
+                bookingCard.innerHTML = `
+                    <div class="room-header">
+                        <span class="room-title">ห้องที่ ${booking.roomNumber} ${booking.roomType}</span>
+                        <span class="price-per-night">ราคา / คืน</span>
+                    </div>
+
+                    <div class="edit-cancel">
+                        <button class="edit-btn" onclick="editBooking('${booking.id}')">
+                            ✏️ แก้ไข
+                        </button>
+                        <button class="cancel-btn" onclick="cancelBooking('${booking.id}')">
+                            ❌ ยกเลิก
+                        </button>
+                    </div>
+
+                    <div class="date-badge">วันที่ ${formattedDate}</div>
+
+                    <div class="booking-content">
+                        <img src="${booking.roomImage}" alt="${booking.roomType}" class="room-image">
+                        
+                        <div class="guest-info">
+                            <div class="guest-title">${booking.guestName}</div>
+                            <div class="guest-details">
+                                ${booking.guestDetails.replace(/\n/g, '<br>')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-table">
+                        <div class="table-header">
+                            <div>สรุปการเปลี่ยนแปลง</div>
+                            <div>ห้องที่ ${booking.roomNumber}</div>
+                            <div>ราคาปัจจุบัน ชำระตามนโยบาย</div>
+                            <div>ราคาเปลี่ยนแปลง</div>
+                        </div>
+                        ${summaryRowsHtml}
+                    </div>
+                `;
+                bookingsListDiv.appendChild(bookingCard);
+            });
+        }
+
+        // --- CRUD Operations (Client-Side) ---
+
+        // Function to simulate adding a new booking
+        // This function would be called from your "Booking Room" page after form submission
+        function addBooking(newBookingData) {
+            // Assign a unique ID (in a real app, this would come from the database)
+            newBookingData.id = 'bkg-' + Date.now();
+            bookings.push(newBookingData);
+            saveBookingsToLocalStorage();
+            renderBookings(); // Re-render to show the new booking
+            alert('จองห้องพักสำเร็จแล้ว!'); // Alert user on success
+        }
+
+        // Function to edit a booking
+        function editBooking(id) {
+            const bookingIndex = bookings.findIndex(b => b.id === id);
+            if (bookingIndex === -1) {
+                console.error('Booking not found for editing:', id);
+                return;
+            }
+
+            const currentBooking = bookings[bookingIndex];
+
+            // --- Simple Edit (using prompt for demonstration) ---
+            // In a real application, you'd open a modal form or redirect to an edit page
+            // pre-filled with currentBooking data.
+            const newGuestName = prompt(`แก้ไขชื่อผู้จองสำหรับ ${currentBooking.roomType} (ปัจจุบัน: ${currentBooking.guestName}):`, currentBooking.guestName);
+            if (newGuestName === null) { // User cancelled
+                return;
+            }
+
+            const newGuestDetails = prompt(`แก้ไขรายละเอียดผู้จองสำหรับ ${currentBooking.roomType} (ปัจจุบัน: ${currentBooking.guestDetails}):`, currentBooking.guestDetails);
+            if (newGuestDetails === null) { // User cancelled
+                return;
+            }
+
+            const newBookingDate = prompt(`แก้ไขวันที่จองสำหรับ ${currentBooking.roomType} (ปัจจุบัน: ${currentBooking.bookingDate}): (รูปแบบ YYYY-MM-DD)`, currentBooking.bookingDate);
+            if (newBookingDate === null) { // User cancelled
+                return;
+            }
+            // Add more prompts for other fields if needed
+
+            // Update the booking object
+            currentBooking.guestName = newGuestName || currentBooking.guestName; // Use old if new is empty
+            currentBooking.guestDetails = newGuestDetails || currentBooking.guestDetails;
+            currentBooking.bookingDate = newBookingDate || currentBooking.bookingDate;
+
+            // In a real app, you might update prices based on changes, for now, we'll keep them
+            // currentBooking.summaryChanges = updatedSummaryChanges;
+
+            saveBookingsToLocalStorage();
+            renderBookings(); // Re-render the list
+            alert('แก้ไขข้อมูลการจองเรียบร้อยแล้ว!');
+        }
+
+        // Function to cancel/delete a booking
+        function cancelBooking(id) {
+            if (confirm('คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจองนี้?')) {
+                bookings = bookings.filter(booking => booking.id !== id);
+                saveBookingsToLocalStorage();
+                renderBookings(); // Re-render the list
+                alert('ยกเลิกการจองเรียบร้อยแล้ว!');
+            }
+        }
+
+        // Function to save bookings to localStorage (client-side persistence)
+        function saveBookingsToLocalStorage() {
+            localStorage.setItem('userBookings', JSON.stringify(bookings));
+            console.log('Bookings saved to localStorage:', bookings);
+        }
+
+        // Event listener for the "บันทึกการเปลี่ยนแปลงทั้งหมด" button
+        document.getElementById('saveAllBookings').addEventListener('click', function() {
+            // In a real application, this button might trigger a save to the backend.
+            // Since we're using localStorage, the changes are already saved on edit/cancel.
+            alert('ข้อมูลการจองทั้งหมดถูกบันทึกเรียบร้อยแล้ว (บนเบราว์เซอร์ของคุณ)!');
+            // You might want to refresh the view or provide more feedback
+            renderBookings();
+        });
+
+        // Initial render when the page loads
+        document.addEventListener('DOMContentLoaded', renderBookings);
+
+        // --- Example of how you would "add" a new booking from the other page ---
+        // You can uncomment and run this line in your browser's console on the "My Bookings" page
+        // to see a new booking appear.
+        /*
+        addBooking({
+            roomType: 'Family Room',
+            roomNumber: '3/2',
+            pricePerNight: 4000,
+            bookingDate: '2025-08-10',
+            guestName: 'คุณลูกค้า ใหม่มาก',
+            guestDetails: 'มาพร้อมสัตว์เลี้ยง 1 ตัว',
+            roomImage: 'https://images.unsplash.com/photo-1578683010236-d716f9d3f107?w=300&h=200&fit=crop',
+            summaryChanges: [
+                { type: 'Family Room', currentPrice: 4000, change: 0, newPrice: 4000 }
+            ]
+        });
+        */
+    </script>
+</body>
+</html>
