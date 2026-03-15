@@ -1109,6 +1109,7 @@
 
     /* Tilt effect var */
     .project-card { transform-style: preserve-3d; }
+    
   </style>
 </head>
 <body>
@@ -1140,9 +1141,9 @@
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-tag fade-up">Network & Infrastructure</div>
+      <div class="hero-tag fade-up">Network & DevOps Engineer</div>
       <h1 class="hero-name fade-up delay-1">Suphanon<br>Singrueang</h1>
-      <p class="hero-title fade-up delay-2">Network & Infrastructure Engineer</p>
+      <p class="hero-title fade-up delay-2">Network & DevOps Engineer</p>
       <ul class="hero-taglines fade-up delay-3">
         <li>Enterprise exposure in data center operations and network infrastructure</li>
         <li>Solid network foundation across routing, VLAN segmentation, and device monitoring</li>
@@ -1192,94 +1193,330 @@
   </div>
 </section>
 
+<style>
+  /* --- ส่วน CSS ปรับปรุง Layout & UI --- */
+  .skills-grid {
+    display: grid;
+    /* บังคับให้เป็น 3 คอลัมน์ แถวละ 3 ใบ */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 32px 24px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .skill-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ------------------------------------------------ */
+  /* เพิ่มส่วนนี้: จับ Icon และ Title มาเรียงต่อกัน */
+  .skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* ระยะห่างระหว่าง Icon กับ Title */
+    margin-bottom: 20px; /* ดัน Tag ด้านล่างลงไป */
+  }
+  /* ------------------------------------------------ */
+
+  .skill-card-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    /* เอา margin-bottom ออกเพราะย้ายไปไว้ที่ header แล้ว */
+  }
+
+  .skill-card-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  .skill-card-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    /* เอา margin-bottom ออกเช่นกัน */
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  /* ปรับ Tag ให้ใหญ่ขึ้น เห็นชัดขึ้น */
+  .skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; 
+    padding: 8px 14px; 
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    font-size: 14px; 
+    font-weight: 500;
+    color: #D4D4D8;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  /* ปรับโลโก้และไอคอนให้ใหญ่ขึ้นเป็น 18px */
+  .skill-tag img, 
+  .skill-tag svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+  }
+
+  .skill-tag svg {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* เอฟเฟกต์ตอน Hover */
+  .skill-tag:hover {
+    color: #FFF;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .skill-tag:hover img,
+  .skill-tag:hover svg {
+    transform: scale(1.15);
+  }
+
+  /* Responsive สำหรับจอเล็ก ให้กลับมาเป็น 2 หรือ 1 คอลัมน์ */
+  @media (max-width: 1024px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
 <section id="skills">
   <div class="container">
     <p class="section-label fade-up" data-en="Capabilities" data-th="ความสามารถ">Capabilities</p>
     <h2 class="section-title fade-up" data-en="Core & Professional Skills" data-th="ทักษะหลักและการทำงาน">Core & Professional Skills</h2>
+    
     <div class="skills-grid">
 
       <div class="skill-card fade-up">
-        <div class="skill-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg>
+        <div class="skill-card-header">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg>
+          </div>
+          <div class="skill-card-title">Network Engineering</div>
         </div>
-        <div class="skill-card-title">Network Engineering</div>
+
         <div class="skill-tags">
-          <span class="skill-tag">Routing & Switching</span>
-          <span class="skill-tag">TCP/IP</span>
-          <span class="skill-tag">VLAN / Subnetting</span>
-          <span class="skill-tag">SNMP & LLDP</span>
-          <span class="skill-tag">Cisco & Huawei & Other Vendors</span>
-          <span class="skill-tag">CLI commands</span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #0ea5e9;"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
+            Routing & Switching
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #06b6d4;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            TCP/IP
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #8b5cf6;"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            VLAN / Subnetting
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #10b981;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            SNMP & LLDP
+          </span>
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/cisco/049fd9" alt="Cisco" />
+            <img src="https://cdn.simpleicons.org/huawei/FF0000" alt="Huawei" />
+            Cisco & Huawei
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #eab308;"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            CLI commands
+          </span>
         </div>
       </div>
 
       <div class="skill-card fade-up delay-1">
-        <div class="skill-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div class="skill-card-header">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="skill-card-title">Cloud & DevOps</div>
         </div>
-        <div class="skill-card-title">Cloud & DevOps</div>
+
         <div class="skill-tags">
-          <span class="skill-tag">Microsoft Azure</span>
-          <span class="skill-tag">Azure Virtual Machines</span>
-          <span class="skill-tag">Azure Networking (VNet, NSG)</span>
-          <span class="skill-tag">Linux (Ubuntu)</span>
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">VMware</span>
-          <span class="skill-tag">CI/CD deployment</span>
+          <span class="skill-tag">
+            <img src="https://logos-world.net/wp-content/uploads/2021/03/Azure-Logo-2020-present-700x394.png" alt="Azure" />
+            Microsoft Azure
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #0078D4;"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            Azure Virtual Machines
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #0ea5e9;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+            Azure Networking
+          </span>
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/ubuntu/E95420" alt="Ubuntu" />
+            Linux (Ubuntu)
+          </span>
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" />
+            Docker
+          </span>
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/vmware/60B932" alt="VMware" />
+            VMware
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #f97316;"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+            CI/CD deployment
+          </span>
         </div>
       </div>
 
       <div class="skill-card fade-up delay-2">
-        <div class="skill-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <div class="skill-card-header">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="skill-card-title">Automation & Dev</div>
         </div>
-        <div class="skill-card-title">Automation & Dev</div>
+
         <div class="skill-tags">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">Network Scripting</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">Flask</span>
-          <span class="skill-tag">Git / GitLab</span>
-          
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" />
+            Python
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #22c55e;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="10 13 8 15 10 17"/><polyline points="14 13 16 15 14 17"/></svg>
+            Network Scripting
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #14b8a6;"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>
+            REST APIs
+          </span>
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/flask/FFFFFF" alt="Flask" />
+            Flask
+          </span>
+          <span class="skill-tag">
+            <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
+            <img src="https://cdn.simpleicons.org/gitlab/FC6D26" alt="GitLab" />
+            Git / GitLab
+          </span>
         </div>
       </div>
 
       <div class="skill-card fade-up delay-3">
-        <div class="skill-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <div class="skill-card-header">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="skill-card-title">Tools</div>
         </div>
-        <div class="skill-card-title">Tools </div>
+
         <div class="skill-tags">
-          <span class="skill-tag">NetBox (SSoT)</span>
-          <span class="skill-tag">Zabbix</span>
-          <span class="skill-tag">Slack Webhooks</span>
-          <span class="skill-tag">Cisco Packet Tracer</span>
+          <span class="skill-tag">
+            <img src="https://enix.io/svg/technologies/netbox.svg" alt="NetBox" />
+            NetBox (SSoT)
+          </span>
+          <span class="skill-tag">
+            <img src="https://images.icon-icons.com/2699/PNG/512/zabbix_logo_icon_167937.png" alt="Zabbix" />
+            Zabbix
+          </span>
+          <span class="skill-tag">
+            <img src="https://logopng.com.br/logos/slack-182.svg" alt="Slack" />
+            Slack Webhooks
+          </span>
+          <span class="skill-tag">
+            <img src="https://img.icons8.com/?size=100&id=eyShSycUjhR9&format=png&color=BEC103" alt="Cisco Packet Tracer" />
+            Cisco Packet Tracer
+          </span>
+           <span class="skill-tag">
+            <img src="https://code.visualstudio.com/assets/branding/code-stable.png" alt="Cisco Packet Tracer" />
+            Visual Studio Code
+            
+          </span>
         </div>
       </div>
 
       <div class="skill-card fade-up delay-4">
-        <div class="skill-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div class="skill-card-header">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="skill-card-title">Problem Solving</div>
         </div>
-        <div class="skill-card-title">Problem Solving</div>
+
         <div class="skill-tags">
-          <span class="skill-tag">Complex Troubleshooting</span>
-          <span class="skill-tag">Root Cause Analysis</span>
-          <span class="skill-tag">Computational Thinking</span>
-          <span class="skill-tag">Process Optimization</span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #ef4444;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            Complex Troubleshooting
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #f97316;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            Root Cause Analysis
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #3b82f6;"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+            Computational Thinking
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #22c55e;"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            Process Optimization
+          </span>
         </div>
       </div>
 
       <div class="skill-card fade-up delay-5">
-        <div class="skill-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="skill-card-header">
+          <div class="skill-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="skill-card-title">Professional Traits</div>
         </div>
-        <div class="skill-card-title">Professional Traits</div>
+
         <div class="skill-tags">
-          <span class="skill-tag">Continuous Learning</span>
-          <span class="skill-tag">Fast Adaptability</span>
-          <span class="skill-tag">Team Communication</span>
-          <span class="skill-tag">Cross-functional Collab</span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #0ea5e9;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Continuous Learning
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #eab308;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Fast Adaptability
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #a855f7;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Team Communication
+          </span>
+          <span class="skill-tag">
+            <svg viewBox="0 0 24 24" style="stroke: #ec4899;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Cross-functional Collab
+          </span>
         </div>
       </div>
 
@@ -1330,7 +1567,7 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="container">
-    <p class="section-label fade-up">Internship Work</p>
+    <p class="section-label fade-up">Internship Work >> Nov 2025 – Feb 2026</p>
     <h2 class="section-title fade-up" data-en="Projects" data-th="โปรเจกต์">Projects internship</h2>
     <div class="project-header fade-up">
       <h3>Network Infrastructure Automation, Web-Dashboard & Smart Alert (2026)</h3>
