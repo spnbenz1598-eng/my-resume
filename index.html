@@ -1312,6 +1312,258 @@
   @media (max-width: 768px) {
     .skills-grid { grid-template-columns: 1fr; }
   }
+
+  /* ==========================================================================
+   PART 1 & 2: PREMIUM 3D & MICRO-INTERACTIONS (APPEND TO END OF CSS)
+   ========================================================================== */
+
+:root {
+  --premium-ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --smooth-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --glass-sheen: linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 55%, transparent 80%);
+}
+
+/* Base setup for smooth motion */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Premium 3D Cards (Skills, Projects, Stats) */
+.skill-card, 
+.project-card, 
+.stat-card, 
+.contact-item {
+  position: relative;
+  transform-style: preserve-3d !important;
+  transition: transform 0.5s var(--premium-ease), box-shadow 0.5s var(--premium-ease), background 0.5s var(--premium-ease), border-color 0.5s var(--premium-ease) !important;
+  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Linear.app-style light sheen overlay */
+.skill-card::after, 
+.project-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: var(--glass-sheen); background-size: 200% 100%; background-position: 200% 0;
+  transition: background-position 0.8s var(--smooth-out); pointer-events: none; z-index: 1;
+}
+
+/* Subtle 3D Hover Lift & Tilt */
+@media (hover: hover) and (pointer: fine) {
+  .skill-card:hover, 
+  .project-card:hover, 
+  .contact-item:hover {
+    transform: perspective(1200px) translateY(-6px) scale(1.01) rotateX(2deg) rotateY(-1deg) !important;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.5), 0 0 24px rgba(56, 189, 248, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    z-index: 10;
+  }
+
+  .skill-card:hover::after, 
+  .project-card:hover::after {
+    background-position: -100% 0;
+  }
+}
+
+/* Micro-interactions: Tags & Chips */
+.skill-tag {
+  transition: transform 0.3s var(--premium-ease), box-shadow 0.3s var(--premium-ease), background 0.3s var(--premium-ease), color 0.3s var(--premium-ease) !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.02) !important;
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px) scale(1.04) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+.skill-tag img, 
+.skill-tag svg {
+  transition: transform 0.4s var(--premium-ease), filter 0.4s var(--premium-ease) !important;
+}
+
+.skill-tag:hover img, 
+.skill-tag:hover svg {
+  transform: scale(1.15) translateY(-1px) !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)) brightness(1.2) !important;
+}
+
+/* Buttons (Stripe/Apple Style) */
+.btn, .btn-download {
+  transition: transform 0.3s var(--premium-ease), box-shadow 0.3s var(--premium-ease) !important;
+}
+
+.btn:hover, .btn-download:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.3), 0 0 20px rgba(56, 189, 248, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Subtle Floating Animations */
+@keyframes premiumFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.hero-photo-wrap, .exp-image-wrap {
+  animation: premiumFloat 6s ease-in-out infinite;
+  transition: transform 0.5s var(--premium-ease), box-shadow 0.5s var(--premium-ease) !important;
+}
+.hero-photo-wrap:hover, .exp-image-wrap:hover {
+  animation-play-state: paused;
+  transform: perspective(1000px) translateY(-10px) rotateX(2deg) rotateY(-2deg) scale(1.02) !important;
+}
+
+
+/* ==========================================================================
+   PART 3, 4 & 5: MOBILE RESPONSIVENESS & UX (SINGLE COLUMN + READABILITY)
+   ========================================================================== */
+
+/* Hide mobile toggle button on desktop */
+.mobile-menu-toggle { display: none; }
+
+@media screen and (max-width: 850px) {
+  /* Prevent horizontal scrolling & set safe bounds */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  section {
+    padding: 80px 20px 40px !important;
+  }
+  .container { padding: 0 !important; }
+
+  /* Typography Scaling for HR readability */
+  .hero-name { font-size: clamp(32px, 8vw, 44px) !important; line-height: 1.15 !important; }
+  .section-title { font-size: 28px !important; margin-bottom: 32px !important; }
+  p, .exp-points span, .project-desc, .hero-taglines li { font-size: 15px !important; line-height: 1.6 !important; }
+
+  /* Flatten all complex grids to single vertical column */
+  .hero-inner, 
+  .about-grid, 
+  .experience-inner, 
+  .skills-grid, 
+  .projects-grid, 
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* Hero Section Mobile Polish */
+  .hero-inner { text-align: center; margin-top: 40px; }
+  .hero-photo-wrap { order: -1; max-width: 220px; margin: 0 auto; animation: none; /* remove float on mobile for perf */ }
+  .hero-photo { height: auto !important; aspect-ratio: 3/4; }
+  .hero-taglines { align-items: center; text-align: left; display: inline-block; margin: 0 auto 32px !important; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .btn { width: 100%; justify-content: center; padding: 16px 24px !important; } /* Larger touch targets */
+
+  /* Reduced inner padding for cards to maximize screen real estate */
+  .skill-card, .project-card, .stat-card, .contact-item { padding: 24px 20px !important; }
+  .skill-card-header { flex-direction: row; margin-bottom: 16px !important; }
+  .skill-tag { padding: 10px 14px !important; } 
+
+  /* ------------------------------------------------------------------------
+     MOBILE NAVIGATION (Premium Glassmorphism Dropdown)
+     ------------------------------------------------------------------------ */
+  nav {
+    padding: 12px 20px !important;
+    width: calc(100% - 32px) !important;
+    top: 16px !important;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+
+  /* Keep logo left, toggle right */
+  .nav-logo { order: 1; z-index: 1002; position: relative; }
+  .lang-toggle { order: 2; margin-left: auto; margin-right: 16px; z-index: 1002; position: relative; }
+  
+  .mobile-menu-toggle {
+    order: 3;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1002;
+    position: relative;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-menu-toggle span {
+    display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px;
+    transition: transform 0.4s var(--premium-ease), opacity 0.4s ease; transform-origin: center;
+  }
+
+  /* The actual expandable menu */
+  .nav-links {
+    order: 4;
+    display: flex !important;
+    position: absolute;
+    top: 100%; left: 0; width: 100%;
+    flex-direction: column;
+    background: rgba(10, 12, 20, 0.95);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    padding: 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    
+    /* Smooth closed state */
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transform: translateY(-16px) scale(0.98);
+    transition: all 0.4s var(--premium-ease) !important;
+    z-index: 1000;
+  }
+
+  /* Open State Triggered by JS */
+  nav.menu-open .nav-links {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(12px) scale(1);
+  }
+
+  /* Animated Hamburger -> X */
+  nav.menu-open .mobile-menu-toggle span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
+  nav.menu-open .mobile-menu-toggle span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+
+  .nav-links li { width: 100%; margin: 0 !important; }
+  .nav-links a {
+    display: block; width: 100%; padding: 16px !important;
+    font-size: 16px !important; text-align: center; border-radius: 12px;
+  }
+  .btn-download { margin-top: 8px; width: 100%; text-align: center; }
+}
+
+/* ==========================================================================
+   PART 6 & 7: TOUCH UX & PERFORMANCE (NO HOVER LAG ON MOBILE)
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Prevent sticky hover states on touch screens */
+  .skill-card:hover, .project-card:hover, .stat-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255,255,255,0.02) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+  }
+
+  /* Add physical 'press' down feedback for touch targets */
+  .btn:active, 
+  .nav-links a:active, 
+  .skill-tag:active, 
+  .project-link:active,
+  .mobile-menu-toggle:active,
+  .lang-btn:active {
+    transform: scale(0.95) !important;
+    opacity: 0.8;
+    transition: transform 0.1s ease, opacity 0.1s ease !important;
+  }
+}
 </style>
 
 <section id="skills">
@@ -1747,7 +1999,7 @@
 </section>
 
 <footer>
-  <span class="footer-text">Suphanon Singrueang — Network & Infrastructure Engineer</span>
+  <span class="footer-text">Suphanon Singrueang </span>
   <span class="footer-text">© 2026</span>
 </footer>
 
@@ -1871,6 +2123,48 @@ function closeArchitecture() {
       card.style.transform = '';
     });
   });
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+    
+    // 1. Inject Hamburger Button Dynamically (preserves your HTML structure)
+    const mobileToggle = document.createElement('button');
+    mobileToggle.className = 'mobile-menu-toggle';
+    mobileToggle.setAttribute('aria-label', 'Toggle Mobile Menu');
+    mobileToggle.innerHTML = '<span></span><span></span>'; 
+    nav.appendChild(mobileToggle);
+    
+    // 2. Toggle Menu State
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nav.classList.toggle('menu-open');
+    });
+    
+    // 3. Auto-close when clicking any navigation link
+    const navLinks = nav.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('menu-open');
+      });
+    });
+
+    // 4. Auto-close when scrolling (Premium HR UX - gets out of the way)
+    window.addEventListener('scroll', () => {
+      if (nav.classList.contains('menu-open')) {
+        nav.classList.remove('menu-open');
+      }
+    }, { passive: true });
+
+    // 5. Auto-close when clicking outside the menu
+    document.addEventListener('click', (e) => {
+      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+        nav.classList.remove('menu-open');
+      }
+    });
+  });
+
 </script>
 </body>
 </html>
